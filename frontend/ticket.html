@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ticket - Helpdesk</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Help<span>desk</span></div>
+    <div class="whoami" id="whoami"></div>
+    <button class="secondary" id="logout">Sign out</button>
+  </header>
+
+  <main class="container">
+    <a class="back-link" href="tickets.html">&larr; All tickets</a>
+
+    <p class="error" id="error" hidden></p>
+
+    <section class="panel" id="detail" hidden>
+      <div class="detail-head">
+        <h2 id="title"></h2>
+        <span class="badge" id="status-badge"></span>
+        <span class="badge overdue" id="overdue-badge" hidden>Overdue</span>
+      </div>
+
+      <p id="description" style="white-space:pre-wrap;color:var(--ink-soft)"></p>
+
+      <dl class="meta-grid">
+        <div><dt>Raised by</dt><dd id="created-by"></dd></div>
+        <div><dt>Assigned to</dt><dd id="assigned-to"></dd></div>
+        <div><dt>Priority</dt><dd id="priority"></dd></div>
+        <div><dt>Created</dt><dd id="created-at"></dd></div>
+        <div><dt>SLA due</dt><dd id="sla-due"></dd></div>
+      </dl>
+
+      <!-- Staff-only controls, revealed by js/ticket.js -->
+      <div id="staff-controls" hidden>
+        <div class="row">
+          <div class="field">
+            <label for="set-status">Change status</label>
+            <select id="set-status">
+              <option value="OPEN">Open</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="RESOLVED">Resolved</option>
+              <option value="CLOSED">Closed</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="set-priority">Change priority</label>
+            <select id="set-priority">
+              <option value="LOW">Low</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="HIGH">High</option>
+              <option value="URGENT">Urgent</option>
+            </select>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="save-changes">Save changes</button>
+          <button class="danger" id="delete-ticket" hidden>Delete ticket</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Conversation</h2>
+      <div id="comments"></div>
+
+      <form id="comment-form" style="margin-top:18px">
+        <div class="field">
+          <label for="body">Add a reply</label>
+          <textarea id="body" name="body" required placeholder="Type your message"></textarea>
+        </div>
+
+        <div class="checkbox-row" id="internal-row" hidden>
+          <input type="checkbox" id="is_internal" name="is_internal">
+          <label for="is_internal">Internal note (hidden from the customer)</label>
+        </div>
+
+        <button type="submit" id="comment-submit">Post reply</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>History</h2>
+      <ul class="timeline" id="history"></ul>
+    </section>
+  </main>
+
+  <script type="module" src="js/ticket.js"></script>
+</body>
+</html>

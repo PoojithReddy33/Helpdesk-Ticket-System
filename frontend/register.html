@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create account - Helpdesk</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="auth-shell">
+    <div class="auth-card">
+      <h1>Create account</h1>
+      <p class="sub">New accounts are customers. Staff roles are granted by an admin.</p>
+
+      <p class="error" id="error" hidden></p>
+      <p class="ok" id="success" hidden></p>
+
+      <form id="register-form">
+        <div class="row">
+          <div class="field">
+            <label for="first_name">First name</label>
+            <input type="text" id="first_name" name="first_name" autocomplete="given-name">
+          </div>
+          <div class="field">
+            <label for="last_name">Last name</label>
+            <input type="text" id="last_name" name="last_name" autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required autocomplete="new-password">
+        </div>
+
+        <div class="field">
+          <label for="password_confirm">Confirm password</label>
+          <input type="password" id="password_confirm" name="password_confirm" required autocomplete="new-password">
+        </div>
+
+        <button type="submit" class="full" id="submit">Create account</button>
+      </form>
+
+      <p class="sub" style="margin-top:20px;margin-bottom:0">
+        Already registered? <a href="index.html">Sign in</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module" src="js/register.js"></script>
+</body>
+</html>

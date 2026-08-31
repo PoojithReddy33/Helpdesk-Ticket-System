@@ -1,0 +1,15 @@
+# Runtime dependencies - what the deployed application needs.
+# Install with:  pip install -r requirements.txt
+
+Django==6.0.8
+djangorestframework==3.18.0
+djangorestframework-simplejwt==5.5.1
+django-filter==26.1
+django-cors-headers==4.9.0
+django-environ==0.14.0
+django-q2==1.11.1
+mysqlclient==2.2.8
+
+# Production serving
+gunicorn==26.2.0
+whitenoise==6.12.0

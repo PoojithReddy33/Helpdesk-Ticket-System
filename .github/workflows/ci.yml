@@ -1,0 +1,67 @@
+name: CI
+
+# Run on every push and every pull request to main.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # GitHub starts a throwaway MySQL container for the job to talk to.
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ci-password
+          MYSQL_DATABASE: ticket
+        ports:
+          - 3306:3306
+        # Do not start the tests until MySQL is actually accepting queries.
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -pci-password"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install system packages for mysqlclient
+        run: sudo apt-get update && sudo apt-get install -y default-libmysqlclient-dev pkg-config
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements-dev.txt
+
+      - name: Run Django system checks
+        working-directory: backend
+        env:
+          DJANGO_SECRET_KEY: ci-secret-key-not-used-anywhere-real-000000000000
+          DEBUG: "True"
+          DB_NAME: ticket
+          DB_USER: root
+          DB_PASSWORD: ci-password
+          DB_HOST: 127.0.0.1
+          DB_PORT: "3306"
+        run: python manage.py check
+
+      - name: Run the test suite
+        working-directory: backend
+        env:
+          DJANGO_SECRET_KEY: ci-secret-key-not-used-anywhere-real-000000000000
+          DEBUG: "True"
+          DB_NAME: ticket
+          DB_USER: root
+          DB_PASSWORD: ci-password
+          DB_HOST: 127.0.0.1
+          DB_PORT: "3306"
+        run: pytest -q --cov=accounts --cov=tickets --cov=notifications --cov-report=term-missing

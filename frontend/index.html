@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in - Helpdesk</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="auth-shell">
+    <div class="auth-card">
+      <h1>Helpdesk</h1>
+      <p class="sub">Sign in to raise and track support tickets.</p>
+
+      <p class="error" id="error" hidden></p>
+
+      <form id="login-form">
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="full" id="submit">Sign in</button>
+      </form>
+
+      <p class="sub" style="margin-top:20px;margin-bottom:0">
+        No account? <a href="register.html">Create one</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- type="module" enables import/export and is what lets us split the JS
+       into files without a build step. -->
+  <script type="module" src="js/login.js"></script>
+</body>
+</html>
